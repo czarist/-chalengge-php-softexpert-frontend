@@ -1,18 +1,16 @@
 import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import PostContext from "../../Context/PostContext";
+import ProductContext from "../../Context/ProductContext";
 import { useNavigate } from 'react-router-dom'
 
 
-export const PostIndex = () => {
+export const ProductIndex = () => {
   const history = useNavigate();
-  const { Posts, getPosts, deletePost } = useContext(PostContext);
+  const { Products, getProducts, deleteProduct } = useContext(ProductContext);
   
   useEffect(() => {
-    getPosts();
-    if (!localStorage.getItem('user-info')) {
-      history("/login");
-    }
+    getProducts();
+   
   }, []);
 
 
@@ -20,10 +18,10 @@ export const PostIndex = () => {
     <div className="mt-12">
       <div className="flex justify-end m-2 p-2">
         <Link
-          to="/posts/create"
+          to="/Products/create"
           className="px-4 py-2 bg-black text-white rounded-md"
         >
-          New Post
+          New Product
         </Link>
       </div>
       <div className="overflow-x-auto relative" bis_skin_checked="1">
@@ -50,28 +48,28 @@ export const PostIndex = () => {
             </tr>
           </thead>
           <tbody>
-            {Posts.map((Post) => {
+            {Products.map((Product) => {
               return (
                 <tr
-                  key={Post.id}
+                  key={Product.id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 >
-                  <td className="py-4 px-6">{Post.nome}</td>
-                  <td className="py-4 px-6">{Post.marca}</td>
-                  <td className="py-4 px-6">{Post.modelo}</td>
-                  <td className="py-4 px-6">R$ {Post.valor}</td>
+                  <td className="py-4 px-6">{Product.nome}</td>
+                  <td className="py-4 px-6">{Product.marca}</td>
+                  <td className="py-4 px-6">{Product.modelo}</td>
+                  <td className="py-4 px-6">R$ {Product.valor}</td>
                   <td className="py-4 px-6">
-                    <img width={200} src={Post.foto} />
+                    <img width={200} src={Product.foto} />
                   </td>
                   <td className="py-4 px-6 space-x-2">
                     <Link
-                      to={`/posts/${Post.id}/edit`}
+                      to={`/Products/${Product.id}/edit`}
                       className="px-4 py-2 bg-green-500 hover:bg-green-700 text-white rounded-md"
                     >
                       Edit
                     </Link>
                     <button
-                      onClick={() => deletePost(Post.id)}
+                      onClick={() => deleteProduct(Product.id)}
                       className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md"
                     >
                       Delete

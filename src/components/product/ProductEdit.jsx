@@ -1,29 +1,25 @@
 import { useContext, useEffect, useState } from "react";
-import PostContext from "../../Context/PostContext";
+import ProductContext from "../../Context/ProductContext";
 import { useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 
 
-export const PostEdit = () => {
+export const ProductEdit = () => {
   const {
     formValues,
     onChange,
     errors,
     setErrors,
-    getPost,
-    updatePost,
-  } = useContext(PostContext);
+    getProduct,
+    updateProduct,
+  } = useContext(ProductContext);
 
   let { id } = useParams();
 
-  const history = useNavigate();
-
   useEffect(() => {
-    getPost(id);
+    getProduct(id);
     setErrors({});
-    if (!localStorage.getItem('user-info')) {
-      history("/login");
-    }
+   
   }, []);
 
   const [image, setImage] = useState('');
@@ -60,7 +56,7 @@ export const PostEdit = () => {
   return (
     <div className="mt-12">
       <form
-        onSubmit={updatePost}
+        onSubmit={updateProduct}
         className="max-w-md mx-auto p-4 bg-white shadow-md rounded-sm"
       >
         <div className="space-y-6">

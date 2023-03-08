@@ -1,17 +1,17 @@
 import { Routes, Route, Link } from "react-router-dom";
-import { PostProvider } from "./Context/PostContext";
+import { ProductProvider } from "./Context/ProductContext";
 
 import { Home } from "./components/Home";
 
-import { PostIndex } from "./components/posts/PostIndex";
-import { PostCreate } from "./components/posts/PostCreate";
-import { PostEdit } from "./components/posts/PostEdit";
+import { ProductIndex } from "./components/product/ProductIndex";
+import { ProductCreate } from "./components/product/ProductCreate";
+import { ProductEdit } from "./components/product/ProductEdit";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
   return (
-    <PostProvider>
+    <ProductProvider>
       <div className="bg-slate-200">
         <div className="max-w-7xl mx-auto min-h-screen">
           <nav className="navbar navbar-dark bg-dark">
@@ -21,19 +21,31 @@ function App() {
               </li>
              
               <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/posts" style={{ color: "white", textDecoration: "none !important" }}>Admin</Link>
+                <Link to="/Products" style={{ color: "white", textDecoration: "none !important" }}>Products</Link>
+              </li>
+
+              <li className="m-2 p-2 text-white rounded-md color-white">
+                <Link to="/Products" style={{ color: "white", textDecoration: "none !important" }}>Taxes</Link>
+              </li>
+
+              <li className="m-2 p-2 text-white rounded-md color-white">
+                <Link to="/Products" style={{ color: "white", textDecoration: "none !important" }}>Categories</Link>
+              </li>
+
+              <li className="m-2 p-2 text-white rounded-md color-white">
+                <Link to="/Products" style={{ color: "white", textDecoration: "none !important" }}>Cart</Link>
               </li>
             </ul>
           </nav>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/posts" element={<PostIndex />} />
-            <Route path="/posts/create" element={<PostCreate />} />
-            <Route path="/posts/:id/edit" element={<PostEdit />} />
+            <Route path="/Products" element={<ProductIndex />} />
+            <Route path="/Products/create" element={<ProductCreate />} />
+            <Route path="/Products/:id/edit" element={<ProductEdit />} />
           </Routes>
         </div>
       </div>
-    </PostProvider>
+    </ProductProvider>
   );
 }
 

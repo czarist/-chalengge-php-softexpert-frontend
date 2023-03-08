@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import PostContext from "../../Context/PostContext";
+import ProductContext from "../../Context/ProductContext";
 
-export const PostCreate = () => {
+export const ProductCreate = () => {
 
-  const { formValues, onChange, storePost, errors, setErrors } =
-    useContext(PostContext);
+  const { formValues, onChange, storeProduct, errors, setErrors } =
+    useContext(ProductContext);
   useEffect(() => {
     setErrors({});
   },
@@ -44,7 +44,7 @@ export const PostCreate = () => {
   return (
     <div className="mt-12">
       <form
-        onSubmit={storePost}
+        onSubmit={storeProduct}
         className="max-w-md mx-auto p-4 bg-white shadow-md rounded-sm"
       >
         <div className="space-y-6">
