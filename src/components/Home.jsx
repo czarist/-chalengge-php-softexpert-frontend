@@ -19,13 +19,12 @@ export const Home = () => {
                 <div className="col-3 p-4">
                   <div className="card bg-grey">
                     <div className="d-flex justify-content-center align-items-center">
-                      <img className="mt-2" width={200} height={200} src={Product.foto} alt={Product.nome} />
+                      <img className="mt-2" width={200} height={200} src={Product.img} alt={Product.name} />
                     </div>
                     <div className="p-4 d-flex flex-column">
-                      <h4>Nome: {Product.nome}</h4>
-                      <span>Marca {Product.marca}</span>
-                      <span>Modelo {Product.modelo}</span>
-                      <span>Preço R$ {Product.valor}</span>
+                      <h4>Name: {Product.name}</h4>
+                      <span>Description {Product.description}</span>
+                      <span>Preço R$ {Product.price}</span>
                     </div>
                   </div>
                 </div>

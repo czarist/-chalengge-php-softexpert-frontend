@@ -1,16 +1,13 @@
 import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import ProductContext from "../../Context/ProductContext";
-import { useNavigate } from 'react-router-dom'
-
 
 export const ProductIndex = () => {
-  const history = useNavigate();
   const { Products, getProducts, deleteProduct } = useContext(ProductContext);
-  
+
   useEffect(() => {
     getProducts();
-   
+
   }, []);
 
 
@@ -29,20 +26,28 @@ export const ProductIndex = () => {
           <thead className="text-xs text-gray-700 uppercase bg-black dark:bg-gray-700 dark:text-white">
             <tr>
               <th scope="col" className="py-3 px-6">
-                Nome
+                Name
               </th>
               <th scope="col" className="py-3 px-6">
-                Marca
-              </th>
-
-              <th scope="col" className="py-3 px-6">
-                Modelo
+                Description
               </th>
               <th scope="col" className="py-3 px-6">
-                valor
+                Category ID
               </th>
               <th scope="col" className="py-3 px-6">
-                Foto
+                Price
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Tax ID
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Created
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Modified
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Photo
               </th>
               <th scope="col" className="py-3 px-6"></th>
             </tr>
@@ -54,12 +59,15 @@ export const ProductIndex = () => {
                   key={Product.id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 >
-                  <td className="py-4 px-6">{Product.nome}</td>
-                  <td className="py-4 px-6">{Product.marca}</td>
-                  <td className="py-4 px-6">{Product.modelo}</td>
-                  <td className="py-4 px-6">R$ {Product.valor}</td>
+                  <td className="py-4 px-6">{Product.name}</td>
+                  <td className="py-4 px-6">{Product.description}</td>
+                  <td className="py-4 px-6">{Product.category_id}</td>
+                  <td className="py-4 px-6">R$ {Product.price}</td>
+                  <td className="py-4 px-6">{Product.tax_id}</td>
+                  <td className="py-4 px-6">{Product.modified}</td>
+                  <td className="py-4 px-6">{Product.price}</td>
                   <td className="py-4 px-6">
-                    <img width={200} src={Product.foto} />
+                    <img width={200} src={Product.img} />
                   </td>
                   <td className="py-4 px-6 space-x-2">
                     <Link

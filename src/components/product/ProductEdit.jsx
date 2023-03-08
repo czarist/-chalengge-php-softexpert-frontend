@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import ProductContext from "../../Context/ProductContext";
 import { useParams } from "react-router-dom";
-import { useNavigate } from 'react-router-dom'
-
 
 export const ProductEdit = () => {
   const {

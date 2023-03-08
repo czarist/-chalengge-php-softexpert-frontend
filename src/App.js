@@ -13,7 +13,7 @@ function App() {
   return (
     <ProductProvider>
       <div className="bg-slate-200">
-        <div className="max-w-7xl mx-auto min-h-screen">
+        <div className="mx-auto min-h-screen">
           <nav className="navbar navbar-dark bg-dark">
             <ul className="flex">
               <li className="m-2 p-2 text-white rounded-md color-white">
