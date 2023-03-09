@@ -17,7 +17,6 @@ export const ProductEdit = () => {
   useEffect(() => {
     getProduct(id);
     setErrors({});
-   
   }, []);
 
   const [image, setImage] = useState('');
@@ -45,7 +44,7 @@ export const ProductEdit = () => {
     element.dispatchEvent(event);
   }
 
-  let input = document.getElementById('foto');
+  let input = document.getElementById('img');
 
   if (image) {
     setNativeValue(input, image);
@@ -59,74 +58,92 @@ export const ProductEdit = () => {
       >
         <div className="space-y-6">
           <div className="mb-4">
-            <label htmlFor="nome" className="block mb-2 text-sm font-medium">
-              Nome
+            <label htmlFor="name" className="block mb-2 text-sm font-medium">
+              Name
             </label>
             <input
-              name="nome"
-              value={formValues["nome"]}
+              name="name"
+              value={formValues["name"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
-            {errors.nome && (
-              <span className="text-sm text-red-400">{errors.nome[0]}</span>
+            {errors.name && (
+              <span className="text-sm text-red-400">{errors.name[0]}</span>
             )}
           </div>
 
           <div className="mb-4">
-            <label htmlFor="marca" className="block mb-2 text-sm font-medium">
-              Marca
+            <label htmlFor="description" className="block mb-2 text-sm font-medium">
+              Description
             </label>
             <input
-              name="marca"
-              value={formValues["marca"]}
+              name="description"
+              value={formValues["description"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
-            {errors.marca && (
-              <span className="text-sm text-red-400">{errors.marca[0]}</span>
+            {errors.description && (
+              <span className="text-sm text-red-400">{errors.description[0]}</span>
             )}
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="modelo" className="block mb-2 text-sm font-medium">
-              Modelo
-            </label>
-            <input
-              name="modelo"
-              value={formValues["modelo"]}
-              onChange={onChange}
-              className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
-            />
-            {errors.modelo && (
-              <span className="text-sm text-red-400">{errors.modelo[0]}</span>
-            )}
-          </div>
 
           <div className="mb-4">
-            <label htmlFor="valor" className="block mb-2 text-sm font-medium">
-              Valor
+            <label htmlFor="price" className="block mb-2 text-sm font-medium">
+              Price
             </label>
             <input
               type="number"
-              name="valor"
-              value={formValues["valor"]}
+              name="price"
+              value={formValues["price"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
-            {errors.valor && (
-              <span className="text-sm text-red-400">{errors.valor[0]}</span>
+            {errors.price && (
+              <span className="text-sm text-red-400">{errors.price[0]}</span>
             )}
           </div>
 
           <div className="mb-4">
-            <label htmlFor="foto" className="block mb-2 text-sm font-medium">
-              Foto
+            <label htmlFor="category_id" className="block mb-2 text-sm font-medium">
+              Category
+            </label>
+            <input
+              type="number"
+              name="category_id"
+              value={formValues["category_id"]}
+              onChange={onChange}
+              className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
+            />
+            {errors.category_id && (
+              <span className="text-sm text-red-400">{errors.category_id[0]}</span>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="tax_id" className="block mb-2 text-sm font-medium">
+              Tax
+            </label>
+            <input
+              type="number"
+              name="tax_id"
+              value={formValues["tax_id"]}
+              onChange={onChange}
+              className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
+            />
+            {errors.tax_id && (
+              <span className="text-sm text-red-400">{errors.tax_id[0]}</span>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="img" className="block mb-2 text-sm font-medium">
+              Imagem
             </label>
             <input
               style={{ display: 'none' }}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
-              name="foto" id="foto" onChange={onChange}
+              name="img" id="img" onChange={onChange}
             />
 
             <input
@@ -140,10 +157,10 @@ export const ProductEdit = () => {
             {image ? (
               <img src={image} />
             ) : (
-              <img src={formValues["foto"]} />
+              <img src={formValues["img"]} />
             )}
-            {errors.foto && (
-              <span className="text-sm text-red-400">{errors.foto[0]}</span>
+            {errors.img && (
+              <span className="text-sm text-red-400">{errors.img[0]}</span>
             )}
           </div>
 

@@ -37,24 +37,41 @@ export const ProductProvider = ({ children }) => {
     const data = await response.json();
     setProduct(data);
     setFormValues({
-      nome: data.nome,
-      marca: data.marca,
-      modelo: data.modelo,
-      valor: data.valor,
-      foto: data.foto
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      category_id: data.category_id,
+      tax_id: data.tax_id,
+      img: data.img
     });
   };
 
   const storeProduct = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await fetch(`${baseURL}products/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formValues),
+      const myHeaders = new Headers();
+      const urlencoded = new URLSearchParams();
+
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+      Object.entries(formValues).forEach((entry) => {
+        const [key, value] = entry;
+        urlencoded.append(key, value);
       });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: "follow",
+      };
+
+      fetch(`${baseURL}products`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+
       setFormValues(initialForm);
       navigate("/products");
     } catch (e) {
@@ -63,19 +80,41 @@ export const ProductProvider = ({ children }) => {
       }
     }
   };
-
+  // 
   const updateProduct = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await fetch(`${baseURL}products/${Product.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formValues),
+      const myHeaders = new Headers();
+      const urlencoded = new URLSearchParams();
+
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+      Object.entries(formValues).forEach((entry) => {
+        const [key, value] = entry;
+        urlencoded.append(key, value);
       });
+
+      console.log(formValues);
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: "follow",
+      };
+
+      fetch(`${baseURL}products/${Product.id}`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+
       setFormValues(initialForm);
-      navigate("/Products");
+
+      window.confirm("successfully updated")
+
+      navigate("/products");
+
     } catch (e) {
       if (e.response.status === 422) {
         setErrors(e.response.data.errors);
@@ -87,10 +126,11 @@ export const ProductProvider = ({ children }) => {
     if (!window.confirm("Are you sure")) {
       return;
     }
-    await fetch(`${baseURL}Products/${id}`, {
+    await fetch(`${baseURL}products/${id}`, {
       method: "DELETE",
     });
     getProducts();
+    navigate("/products");
   };
 
   return (

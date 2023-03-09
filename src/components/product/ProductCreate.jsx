@@ -53,7 +53,7 @@ export const ProductCreate = () => {
               Name
             </label>
             <input
-              name="nome"
+              name="name"
               value={formValues["nome"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
