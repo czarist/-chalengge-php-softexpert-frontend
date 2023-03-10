@@ -7,9 +7,7 @@ export const TaxIndex = () => {
 
   useEffect(() => {
     getTaxes();
-
   }, []);
-
 
   return (
     <div className="mt-12">
@@ -29,16 +27,7 @@ export const TaxIndex = () => {
                 Name
               </th>
               <th scope="col" className="py-3 px-6">
-                Description
-              </th>
-              <th scope="col" className="py-3 px-6">
-                Category ID
-              </th>
-              <th scope="col" className="py-3 px-6">
-                Price
-              </th>
-              <th scope="col" className="py-3 px-6">
-                Tax ID
+                Rate
               </th>
               <th scope="col" className="py-3 px-6">
                 Created
@@ -47,9 +36,8 @@ export const TaxIndex = () => {
                 Modified
               </th>
               <th scope="col" className="py-3 px-6">
-                Photo
+
               </th>
-              <th scope="col" className="py-3 px-6"></th>
             </tr>
           </thead>
           <tbody>
@@ -60,18 +48,13 @@ export const TaxIndex = () => {
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 >
                   <td className="py-4 px-6">{tax.name}</td>
-                  <td className="py-4 px-6">{tax.description}</td>
-                  <td className="py-4 px-6">{tax.category_id}</td>
-                  <td className="py-4 px-6">R$ {tax.price}</td>
-                  <td className="py-4 px-6">{tax.tax_id}</td>
-                  <td className="py-4 px-6">{tax.modified}</td>
-                  <td className="py-4 px-6">{tax.price}</td>
-                  <td className="py-4 px-6">
-                    <img width={200} src={tax.img} />
-                  </td>
+                  <td className="py-4 px-6">{tax.rate}</td>
+                  <td className="py-4 px-6">{tax.created}</td>
+                  <td className="py-4 px-6">R$ {tax.modified}</td>
+                 
                   <td className="py-4 px-6 space-x-2">
                     <Link
-                      to={`/Taxes/${tax.id}/edit`}
+                      to={`/taxes/${tax.id}/edit`}
                       className="px-4 py-2 bg-green-500 hover:bg-green-700 text-white rounded-md"
                     >
                       Edit

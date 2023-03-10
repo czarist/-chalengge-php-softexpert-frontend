@@ -3,7 +3,7 @@ import IndexContext from "../../Context/IndexContext";
 
 export const ProductCreate = () => {
 
-  const { formValues, onChange, storeProduct, errors, setErrors } =
+  const { productValues, onChange, storeProduct, errors, setErrors } =
     useContext(IndexContext);
   useEffect(() => {
     setErrors({});
@@ -54,7 +54,7 @@ export const ProductCreate = () => {
             </label>
             <input
               name="name"
-              value={formValues["nome"]}
+              value={productValues["nome"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
@@ -69,7 +69,7 @@ export const ProductCreate = () => {
 
             <input
               name="description"
-              value={formValues["description"]}
+              value={productValues["description"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
@@ -84,7 +84,7 @@ export const ProductCreate = () => {
             </label>
             <input
               name="category_id"
-              value={formValues["category_id"]}
+              value={productValues["category_id"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
@@ -100,7 +100,7 @@ export const ProductCreate = () => {
             <input
               name="price"
               type="number"
-              value={formValues["price"]}
+              value={productValues["price"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
@@ -116,7 +116,7 @@ export const ProductCreate = () => {
             <input
               name="tax_id"
               type="number"
-              value={formValues["tax_id"]}
+              value={productValues["tax_id"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />

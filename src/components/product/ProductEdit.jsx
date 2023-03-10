@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 export const ProductEdit = () => {
   const {
-    formValues,
+    productValues,
     onChange,
     errors,
     setErrors,
@@ -63,7 +63,7 @@ export const ProductEdit = () => {
             </label>
             <input
               name="name"
-              value={formValues["name"]}
+              value={productValues["name"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
@@ -78,7 +78,7 @@ export const ProductEdit = () => {
             </label>
             <input
               name="description"
-              value={formValues["description"]}
+              value={productValues["description"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
@@ -95,7 +95,7 @@ export const ProductEdit = () => {
             <input
               type="number"
               name="price"
-              value={formValues["price"]}
+              value={productValues["price"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
@@ -111,7 +111,7 @@ export const ProductEdit = () => {
             <input
               type="number"
               name="category_id"
-              value={formValues["category_id"]}
+              value={productValues["category_id"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
@@ -127,7 +127,7 @@ export const ProductEdit = () => {
             <input
               type="number"
               name="tax_id"
-              value={formValues["tax_id"]}
+              value={productValues["tax_id"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
@@ -157,7 +157,7 @@ export const ProductEdit = () => {
             {image ? (
               <img src={image} />
             ) : (
-              <img src={formValues["img"]} />
+              <img src={productValues["img"]} />
             )}
             {errors.img && (
               <span className="text-sm text-red-400">{errors.img[0]}</span>

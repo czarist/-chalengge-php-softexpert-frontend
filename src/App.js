@@ -26,27 +26,43 @@ function App() {
               </li>
 
               <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/Products" style={{ color: "white", textDecoration: "none !important" }}>Products</Link>
+                <Link to="/products" style={{ color: "white", textDecoration: "none !important" }}>Products</Link>
               </li>
 
               <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/Products" style={{ color: "white", textDecoration: "none !important" }}>Taxes</Link>
+                <Link to="/taxes" style={{ color: "white", textDecoration: "none !important" }}>Taxes</Link>
               </li>
 
               <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/Products" style={{ color: "white", textDecoration: "none !important" }}>Categories</Link>
+                <Link to="/products" style={{ color: "white", textDecoration: "none !important" }}>Categories</Link>
               </li>
 
               <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/Products" style={{ color: "white", textDecoration: "none !important" }}>Cart</Link>
+                <Link to="/products" style={{ color: "white", textDecoration: "none !important" }}>Cart</Link>
               </li>
             </ul>
           </nav>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Products" element={<ProductIndex />} />
-            <Route path="/Products/create" element={<ProductCreate />} />
-            <Route path="/Products/:id/edit" element={<ProductEdit />} />
+
+            {/* Products routes */}
+
+            <Route path="/products" element={<ProductIndex />} />
+            <Route path="/products/create" element={<ProductCreate />} />
+            <Route path="/products/:id/edit" element={<ProductEdit />} />
+
+            {/* Taxes routes */}
+
+            <Route path="/taxes" element={<TaxIndex />} />
+            <Route path="/taxes/create" element={<TaxCreate />} />
+            <Route path="/taxes/:id/edit" element={<TaxEdit />} />
+
+            {/* Category routes */}
+
+            <Route path="/taxes" element={<TaxIndex />} />
+            <Route path="/taxes/create" element={<TaxCreate />} />
+            <Route path="/taxes/:id/edit" element={<TaxEdit />} />
+
           </Routes>
         </div>
       </div>

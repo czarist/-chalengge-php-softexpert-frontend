@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 const baseURL = "http://localhost:8080/api/";
 
 const IndexContext = createContext();
+const myHeaders = new Headers();
+const urlencoded = new URLSearchParams();
+
+myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
 const productForm = {
   name: "",
@@ -14,17 +18,39 @@ const productForm = {
   img: "",
 };
 
+const taxForm = {
+  name: "",
+  rate: "",
+};
+
+const categoryForm = {
+  name: "",
+  description: "",
+};
+
 export const IndexProvider = ({ children }) => {
-  const [formValues, setFormValues] = useState(productForm);
+  const [productValues, setProductValues] = useState(productForm);
   const [Products, setProducts] = useState([]);
   const [Product, setProduct] = useState([]);
-  const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
+
+  const [taxValues, setTaxValues] = useState(taxForm);
+  const [Taxes, setTaxes] = useState([]);
+  const [Tax, setTax] = useState([]);
+
+  const [categoriesValues, setCategoryValues] = useState(categoryForm);
+  const [Categories, setCategories] = useState([]);
+  const [Category, setCategory] = useState([]);
 
   const onChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+    setProductValues({ ...productValues, [name]: value });
+    setTaxValues({ ...taxValues, [name]: value });
   };
+
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+
+  // Get lists of elements
 
   const getProducts = async () => {
     const response = await fetch(`${baseURL}products`);
@@ -32,11 +58,25 @@ export const IndexProvider = ({ children }) => {
     setProducts(data);
   };
 
+  const getTaxes = async () => {
+    const response = await fetch(`${baseURL}taxes`);
+    const data = await response.json();
+    setTaxes(data);
+  };
+
+  const getCategories = async () => {
+    const response = await fetch(`${baseURL}categories`);
+    const data = await response.json();
+    setCategories(data);
+  };
+
+  // Get Item by ID 
+
   const getProduct = async (id) => {
     const response = await fetch(`${baseURL}products/${id}`);
     const data = await response.json();
     setProduct(data);
-    setFormValues({
+    setProductValues({
       name: data.name,
       description: data.description,
       price: data.price,
@@ -46,16 +86,24 @@ export const IndexProvider = ({ children }) => {
     });
   };
 
+  const getTax = async (id) => {
+    const response = await fetch(`${baseURL}taxes/${id}`);
+    const data = await response.json();
+    setTax(data);
+    setTaxValues({
+      name: data.name,
+      rate: data.rate
+    });
+  };
+
+  // create items
+
   const storeProduct = async (e) => {
     e.preventDefault();
 
     try {
-      const myHeaders = new Headers();
-      const urlencoded = new URLSearchParams();
 
-      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-      Object.entries(formValues).forEach((entry) => {
+      Object.entries(productValues).forEach((entry) => {
         const [key, value] = entry;
         urlencoded.append(key, value);
       });
@@ -72,7 +120,7 @@ export const IndexProvider = ({ children }) => {
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
 
-      setFormValues(productForm);
+      setProductValues(productForm);
       navigate("/products");
     } catch (e) {
       if (e.response.status === 422) {
@@ -80,22 +128,18 @@ export const IndexProvider = ({ children }) => {
       }
     }
   };
-  
+
+  // updated items
+
   const updateProduct = async (e) => {
     e.preventDefault();
 
     try {
-      const myHeaders = new Headers();
-      const urlencoded = new URLSearchParams();
 
-      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-      Object.entries(formValues).forEach((entry) => {
+      Object.entries(productValues).forEach((entry) => {
         const [key, value] = entry;
         urlencoded.append(key, value);
       });
-
-      console.log(formValues);
 
       const requestOptions = {
         method: "POST",
@@ -109,7 +153,7 @@ export const IndexProvider = ({ children }) => {
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
 
-      setFormValues(productForm);
+      setProductValues(productForm);
 
       window.confirm("successfully updated")
 
@@ -122,15 +166,64 @@ export const IndexProvider = ({ children }) => {
     }
   };
 
+  const updateTax = async (e) => {
+    e.preventDefault();
+
+    try {
+      Object.entries(taxValues).forEach((entry) => {
+        const [key, value] = entry;
+        urlencoded.append(key, value);
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: "follow",
+      };
+
+      fetch(`${baseURL}taxes/${Tax.id}`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+
+      setTaxValues(taxForm);
+
+      window.confirm("successfully updated")
+
+      navigate("/taxes");
+
+    } catch (e) {
+      if (e.response.status === 422) {
+        setErrors(e.response.data.errors);
+      }
+    }
+  };
+
+
+  // Delete items
+
   const deleteProduct = async (id) => {
-    if (!window.confirm("Are you sure")) {
+    if (!window.confirm("Are you sure?")) {
       return;
     }
+
     await fetch(`${baseURL}products/${id}`, {
       method: "DELETE",
     });
     getProducts();
     navigate("/products");
+  };
+
+  const deleteTax = async (id) => {
+    if (!window.confirm("Are you sure?")) {
+      return;
+    }
+    await fetch(`${baseURL}taxes/${id}`, {
+      method: "DELETE",
+    });
+    getTaxes();
+    navigate("/taxes");
   };
 
   return (
@@ -141,12 +234,23 @@ export const IndexProvider = ({ children }) => {
         getProduct,
         getProducts,
         onChange,
-        formValues,
+        productValues,
         storeProduct,
         errors,
         setErrors,
         updateProduct,
         deleteProduct,
+        getTaxes,
+        getTax,
+        Taxes,
+        Tax,
+        updateTax,
+        deleteTax,
+        taxValues,
+        getCategories,
+        categoriesValues,
+        Categories,
+        Category
       }}
     >
       {children}
