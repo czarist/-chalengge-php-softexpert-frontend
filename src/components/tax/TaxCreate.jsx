@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import IndexContext from "../../Context/IndexContext";
 
-export const ProductCreate = () => {
+export const TaxCreate = () => {
 
-  const { formValues, onChange, storeProduct, errors, setErrors } =
+  const { formValues, onChange, storeTax, errors, setErrors } =
     useContext(IndexContext);
   useEffect(() => {
     setErrors({});
@@ -44,7 +44,7 @@ export const ProductCreate = () => {
   return (
     <div className="mt-12">
       <form
-        onSubmit={storeProduct}
+        onSubmit={storeTax}
         className="max-w-md mx-auto p-4 bg-white shadow-md rounded-sm"
       >
         <div className="space-y-6">

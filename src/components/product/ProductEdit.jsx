@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import ProductContext from "../../Context/ProductContext";
+import IndexContext from "../../Context/IndexContext";
 import { useParams } from "react-router-dom";
 
 export const ProductEdit = () => {
@@ -10,7 +10,7 @@ export const ProductEdit = () => {
     setErrors,
     getProduct,
     updateProduct,
-  } = useContext(ProductContext);
+  } = useContext(IndexContext);
 
   let { id } = useParams();
 

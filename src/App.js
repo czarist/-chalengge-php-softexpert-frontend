@@ -1,17 +1,22 @@
 import { Routes, Route, Link } from "react-router-dom";
-import { ProductProvider } from "./Context/ProductContext";
+import { IndexProvider } from "./Context/IndexContext";
 
 import { Home } from "./components/Home";
 
 import { ProductIndex } from "./components/product/ProductIndex";
 import { ProductCreate } from "./components/product/ProductCreate";
 import { ProductEdit } from "./components/product/ProductEdit";
+
+import { TaxIndex } from "./components/tax/TaxIndex";
+import { TaxCreate } from "./components/tax/TaxCreate";
+import { TaxEdit } from "./components/tax/TaxEdit";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
   return (
-    <ProductProvider>
+    <IndexProvider>
       <div className="bg-slate-200">
         <div className="mx-auto min-h-screen">
           <nav className="navbar navbar-dark bg-dark">
@@ -19,7 +24,7 @@ function App() {
               <li className="m-2 p-2 text-white rounded-md color-white">
                 <Link to="/" style={{ color: "white", textDecoration: "none !important" }}>Home</Link>
               </li>
-             
+
               <li className="m-2 p-2 text-white rounded-md color-white">
                 <Link to="/Products" style={{ color: "white", textDecoration: "none !important" }}>Products</Link>
               </li>
@@ -45,7 +50,7 @@ function App() {
           </Routes>
         </div>
       </div>
-    </ProductProvider>
+    </IndexProvider>
   );
 }
 

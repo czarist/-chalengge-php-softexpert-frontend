@@ -1,8 +1,8 @@
 import React, { useEffect, useContext, useState } from "react";
-import ProductContext from "../Context/ProductContext";
+import IndexContext from "../Context/IndexContext";
 
 export const Home = () => {
-  const { Products, getProducts, } = useContext(ProductContext);
+  const { Products, getProducts, } = useContext(IndexContext);
 
   useEffect(() => {
     getProducts();

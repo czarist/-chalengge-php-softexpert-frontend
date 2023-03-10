@@ -2,11 +2,11 @@ import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import IndexContext from "../../Context/IndexContext";
 
-export const ProductIndex = () => {
-  const { Products, getProducts, deleteProduct } = useContext(IndexContext);
+export const TaxIndex = () => {
+  const { Taxes, getTaxes, deleteTax } = useContext(IndexContext);
 
   useEffect(() => {
-    getProducts();
+    getTaxes();
 
   }, []);
 
@@ -15,10 +15,10 @@ export const ProductIndex = () => {
     <div className="mt-12">
       <div className="flex justify-end m-2 p-2">
         <Link
-          to="/Products/create"
+          to="/Taxes/create"
           className="px-4 py-2 bg-black text-white rounded-md"
         >
-          New Product
+          New Tax
         </Link>
       </div>
       <div className="overflow-x-auto relative" bis_skin_checked="1">
@@ -53,31 +53,31 @@ export const ProductIndex = () => {
             </tr>
           </thead>
           <tbody>
-            {Products.map((Product) => {
+            {Taxes.map((tax) => {
               return (
                 <tr
-                  key={Product.id}
+                  key={tax.id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 >
-                  <td className="py-4 px-6">{Product.name}</td>
-                  <td className="py-4 px-6">{Product.description}</td>
-                  <td className="py-4 px-6">{Product.category_id}</td>
-                  <td className="py-4 px-6">R$ {Product.price}</td>
-                  <td className="py-4 px-6">{Product.tax_id}</td>
-                  <td className="py-4 px-6">{Product.created}</td>
-                  <td className="py-4 px-6">{Product.modified}</td>
+                  <td className="py-4 px-6">{tax.name}</td>
+                  <td className="py-4 px-6">{tax.description}</td>
+                  <td className="py-4 px-6">{tax.category_id}</td>
+                  <td className="py-4 px-6">R$ {tax.price}</td>
+                  <td className="py-4 px-6">{tax.tax_id}</td>
+                  <td className="py-4 px-6">{tax.modified}</td>
+                  <td className="py-4 px-6">{tax.price}</td>
                   <td className="py-4 px-6">
-                    <img width={200} src={Product.img} />
+                    <img width={200} src={tax.img} />
                   </td>
                   <td className="py-4 px-6 space-x-2">
                     <Link
-                      to={`/Products/${Product.id}/edit`}
+                      to={`/Taxes/${tax.id}/edit`}
                       className="px-4 py-2 bg-green-500 hover:bg-green-700 text-white rounded-md"
                     >
                       Edit
                     </Link>
                     <button
-                      onClick={() => deleteProduct(Product.id)}
+                      onClick={() => deleteTax(tax.id)}
                       className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md"
                     >
                       Delete

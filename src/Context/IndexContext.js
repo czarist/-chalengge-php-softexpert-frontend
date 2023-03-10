@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 const baseURL = "http://localhost:8080/api/";
 
-const ProductContext = createContext();
+const IndexContext = createContext();
 
-const initialForm = {
+const productForm = {
   name: "",
   description: "",
   price: "",
@@ -14,8 +14,8 @@ const initialForm = {
   img: "",
 };
 
-export const ProductProvider = ({ children }) => {
-  const [formValues, setFormValues] = useState(initialForm);
+export const IndexProvider = ({ children }) => {
+  const [formValues, setFormValues] = useState(productForm);
   const [Products, setProducts] = useState([]);
   const [Product, setProduct] = useState([]);
   const [errors, setErrors] = useState({});
@@ -72,7 +72,7 @@ export const ProductProvider = ({ children }) => {
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
 
-      setFormValues(initialForm);
+      setFormValues(productForm);
       navigate("/products");
     } catch (e) {
       if (e.response.status === 422) {
@@ -80,7 +80,7 @@ export const ProductProvider = ({ children }) => {
       }
     }
   };
-  // 
+  
   const updateProduct = async (e) => {
     e.preventDefault();
 
@@ -109,7 +109,7 @@ export const ProductProvider = ({ children }) => {
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
 
-      setFormValues(initialForm);
+      setFormValues(productForm);
 
       window.confirm("successfully updated")
 
@@ -134,7 +134,7 @@ export const ProductProvider = ({ children }) => {
   };
 
   return (
-    <ProductContext.Provider
+    <IndexContext.Provider
       value={{
         Product,
         Products,
@@ -150,8 +150,8 @@ export const ProductProvider = ({ children }) => {
       }}
     >
       {children}
-    </ProductContext.Provider>
+    </IndexContext.Provider>
   );
 };
 
-export default ProductContext;
+export default IndexContext;

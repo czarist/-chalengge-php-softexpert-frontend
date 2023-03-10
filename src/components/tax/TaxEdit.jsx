@@ -1,14 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import IndexContext from "../../Context/IndexContext";
+import { useParams } from "react-router-dom";
 
-export const ProductCreate = () => {
+export const TaxEdit = () => {
+  const {
+    formValues,
+    onChange,
+    errors,
+    setErrors,
+    getTax,
+    updateTax,
+  } = useContext(IndexContext);
 
-  const { formValues, onChange, storeProduct, errors, setErrors } =
-    useContext(IndexContext);
+  let { id } = useParams();
+
   useEffect(() => {
+    getTax(id);
     setErrors({});
-  },
-    []);
+  }, []);
 
   const [image, setImage] = useState('');
 
@@ -44,29 +53,29 @@ export const ProductCreate = () => {
   return (
     <div className="mt-12">
       <form
-        onSubmit={storeProduct}
+        onSubmit={updateTax}
         className="max-w-md mx-auto p-4 bg-white shadow-md rounded-sm"
       >
         <div className="space-y-6">
-          <div className="mb-2">
+          <div className="mb-4">
             <label htmlFor="name" className="block mb-2 text-sm font-medium">
               Name
             </label>
             <input
               name="name"
-              value={formValues["nome"]}
+              value={formValues["name"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
-            {errors.nome && (
-              <span className="text-sm text-red-400">{errors.nome[0]}</span>
+            {errors.name && (
+              <span className="text-sm text-red-400">{errors.name[0]}</span>
             )}
           </div>
-          <div className="mb-2">
+
+          <div className="mb-4">
             <label htmlFor="description" className="block mb-2 text-sm font-medium">
               Description
             </label>
-
             <input
               name="description"
               value={formValues["description"]}
@@ -78,11 +87,29 @@ export const ProductCreate = () => {
             )}
           </div>
 
-          <div className="mb-2">
+
+          <div className="mb-4">
+            <label htmlFor="price" className="block mb-2 text-sm font-medium">
+              Price
+            </label>
+            <input
+              type="number"
+              name="price"
+              value={formValues["price"]}
+              onChange={onChange}
+              className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
+            />
+            {errors.price && (
+              <span className="text-sm text-red-400">{errors.price[0]}</span>
+            )}
+          </div>
+
+          <div className="mb-4">
             <label htmlFor="category_id" className="block mb-2 text-sm font-medium">
               Category
             </label>
             <input
+              type="number"
               name="category_id"
               value={formValues["category_id"]}
               onChange={onChange}
@@ -93,43 +120,26 @@ export const ProductCreate = () => {
             )}
           </div>
 
-          <div className="mb-2">
-            <label htmlFor="price" className="block mb-2 text-sm font-medium">
-              Price
-            </label>
-            <input
-              name="price"
-              type="number"
-              value={formValues["price"]}
-              onChange={onChange}
-              className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
-            />
-            {errors.price && (
-              <span className="text-sm text-red-400">{errors.price[0]}</span>
-            )}
-          </div>
-
-          <div className="mb-2">
+          <div className="mb-4">
             <label htmlFor="tax_id" className="block mb-2 text-sm font-medium">
               Tax
             </label>
             <input
-              name="tax_id"
               type="number"
+              name="tax_id"
               value={formValues["tax_id"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
-            {errors.price && (
-              <span className="text-sm text-red-400">{errors.price[0]}</span>
+            {errors.tax_id && (
+              <span className="text-sm text-red-400">{errors.tax_id[0]}</span>
             )}
           </div>
 
-          <div className="mb-2">
+          <div className="mb-4">
             <label htmlFor="img" className="block mb-2 text-sm font-medium">
-              Image
+              Imagem
             </label>
-
             <input
               style={{ display: 'none' }}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
@@ -147,19 +157,20 @@ export const ProductCreate = () => {
             {image ? (
               <img src={image} />
             ) : (
-              ''
+              <img src={formValues["img"]} />
             )}
             {errors.img && (
               <span className="text-sm text-red-400">{errors.img[0]}</span>
             )}
           </div>
+
         </div>
         <div className="my-4">
           <button
             type="submit"
             className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md"
           >
-            Store
+            Update
           </button>
         </div>
       </form>
