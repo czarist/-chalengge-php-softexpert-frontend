@@ -37,7 +37,7 @@ export const IndexProvider = ({ children }) => {
   const [Taxes, setTaxes] = useState([]);
   const [Tax, setTax] = useState([]);
 
-  const [categoriesValues, setCategoryValues] = useState(categoryForm);
+  const [categoryValues, setCategoryValues] = useState(categoryForm);
   const [Categories, setCategories] = useState([]);
   const [Category, setCategory] = useState([]);
 
@@ -45,6 +45,7 @@ export const IndexProvider = ({ children }) => {
     const { name, value } = e.target;
     setProductValues({ ...productValues, [name]: value });
     setTaxValues({ ...taxValues, [name]: value });
+    setCategoryValues({ ...categoryValues, [name]: value });
   };
 
   const [errors, setErrors] = useState({});
@@ -96,6 +97,16 @@ export const IndexProvider = ({ children }) => {
     });
   };
 
+  const getCategory = async (id) => {
+    const response = await fetch(`${baseURL}categories/${id}`);
+    const data = await response.json();
+    setCategory(data);
+    setCategoryValues({
+      name: data.name,
+      description: data.description
+    });
+  };
+
   // create items
 
   const storeProduct = async (e) => {
@@ -129,6 +140,69 @@ export const IndexProvider = ({ children }) => {
     }
   };
 
+  const storeTax = async (e) => {
+    e.preventDefault();
+
+    try {
+
+      Object.entries(productValues).forEach((entry) => {
+        const [key, value] = entry;
+        urlencoded.append(key, value);
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: "follow",
+      };
+
+      fetch(`${baseURL}taxes`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+
+      setProductValues(taxForm);
+      navigate("/taxes");
+    } catch (e) {
+      if (e.response.status === 422) {
+        setErrors(e.response.data.errors);
+      }
+    }
+  };
+
+  const storeCategory = async (e) => {
+    e.preventDefault();
+
+    try {
+
+      Object.entries(categoryValues).forEach((entry) => {
+        const [key, value] = entry;
+        urlencoded.append(key, value);
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: "follow",
+      };
+
+      fetch(`${baseURL}categories`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+
+      setCategoryValues(categoryForm);
+      navigate("/categories");
+    } catch (e) {
+      if (e.response.status === 422) {
+        setErrors(e.response.data.errors);
+      }
+    }
+  };
+
+
   // updated items
 
   const updateProduct = async (e) => {
@@ -153,7 +227,7 @@ export const IndexProvider = ({ children }) => {
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
 
-      setProductValues(productForm);
+      setCategoryValues(productForm);
 
       window.confirm("successfully updated")
 
@@ -200,6 +274,40 @@ export const IndexProvider = ({ children }) => {
     }
   };
 
+  const updateCategory = async (e) => {
+    e.preventDefault();
+
+    try {
+      Object.entries(categoryValues).forEach((entry) => {
+        const [key, value] = entry;
+        urlencoded.append(key, value);
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: "follow",
+      };
+
+      fetch(`${baseURL}categories/${Category.id}`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+
+      setCategoryValues(categoryForm);
+
+      window.confirm("successfully updated")
+
+      navigate("/categories");
+
+    } catch (e) {
+      if (e.response.status === 422) {
+        setErrors(e.response.data.errors);
+      }
+    }
+  };
+
 
   // Delete items
 
@@ -226,31 +334,50 @@ export const IndexProvider = ({ children }) => {
     navigate("/taxes");
   };
 
+  const deleteCategory = async (id) => {
+    if (!window.confirm("Are you sure?")) {
+      return;
+    }
+    await fetch(`${baseURL}categories/${id}`, {
+      method: "DELETE",
+    });
+    getCategories();
+    navigate("/categories");
+  };
+
   return (
     <IndexContext.Provider
       value={{
         Product,
         Products,
+        productValues,
         getProduct,
         getProducts,
-        onChange,
-        productValues,
         storeProduct,
-        errors,
-        setErrors,
-        updateProduct,
         deleteProduct,
-        getTaxes,
-        getTax,
+        updateProduct,
+
         Taxes,
         Tax,
-        updateTax,
-        deleteTax,
         taxValues,
-        getCategories,
-        categoriesValues,
+        getTaxes,
+        getTax,
+        storeTax,
+        deleteTax,
+        updateTax,
+
+        Category,
         Categories,
-        Category
+        categoryValues,
+        getCategory,
+        getCategories,
+        storeCategory,
+        deleteCategory,
+        updateCategory,
+
+        errors,
+        setErrors,
+        onChange
       }}
     >
       {children}

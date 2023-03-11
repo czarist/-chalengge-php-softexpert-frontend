@@ -11,6 +11,10 @@ import { TaxIndex } from "./components/tax/TaxIndex";
 import { TaxCreate } from "./components/tax/TaxCreate";
 import { TaxEdit } from "./components/tax/TaxEdit";
 
+import { CategoryIndex } from "./components/category/CategoryIndex";
+import { CategoryCreate } from "./components/category/CategoryCreate";
+import { CategoryEdit } from "./components/category/CategoryEdit";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -34,7 +38,7 @@ function App() {
               </li>
 
               <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/products" style={{ color: "white", textDecoration: "none !important" }}>Categories</Link>
+                <Link to="/categories" style={{ color: "white", textDecoration: "none !important" }}>Categories</Link>
               </li>
 
               <li className="m-2 p-2 text-white rounded-md color-white">
@@ -59,9 +63,9 @@ function App() {
 
             {/* Category routes */}
 
-            <Route path="/taxes" element={<TaxIndex />} />
-            <Route path="/taxes/create" element={<TaxCreate />} />
-            <Route path="/taxes/:id/edit" element={<TaxEdit />} />
+            <Route path="/categories" element={<CategoryIndex />} />
+            <Route path="/categories/create" element={<CategoryCreate />} />
+            <Route path="/categories/:id/edit" element={<CategoryEdit />} />
 
           </Routes>
         </div>

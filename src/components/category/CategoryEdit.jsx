@@ -2,27 +2,27 @@ import { useContext, useEffect, useState } from "react";
 import IndexContext from "../../Context/IndexContext";
 import { useParams } from "react-router-dom";
 
-export const TaxEdit = () => {
+export const CategoryEdit = () => {
   const {
-    taxValues,
+    categoryValues,
     onChange,
     errors,
     setErrors,
-    getTax,
-    updateTax,
+    getCategory,
+    updateCategory,
   } = useContext(IndexContext);
 
   let { id } = useParams();
 
   useEffect(() => {
-    getTax(id);
+    getCategory(id);
     setErrors({});
   }, []);
 
   return (
     <div className="mt-12">
       <form
-        onSubmit={updateTax}
+        onSubmit={updateCategory}
         className="max-w-md mx-auto p-4 bg-white shadow-md rounded-sm"
       >
         <div className="space-y-6">
@@ -32,7 +32,7 @@ export const TaxEdit = () => {
             </label>
             <input
               name="name"
-              value={taxValues.name}
+              value={categoryValues["name"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
@@ -43,21 +43,18 @@ export const TaxEdit = () => {
 
           <div className="mb-4">
             <label htmlFor="description" className="block mb-2 text-sm font-medium">
-              Rate
+              Description
             </label>
             <input
-              name="rate"
-              type="number"
-              value={taxValues.rate}
+              name="description"
+              value={categoryValues["description"]}
               onChange={onChange}
               className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
             />
-            {errors.rate && (
-              <span className="text-sm text-red-400">{errors.rate[0]}</span>
+            {errors.description && (
+              <span className="text-sm text-red-400">{errors.description[0]}</span>
             )}
           </div>
-
-
 
         </div>
         <div className="my-4">
