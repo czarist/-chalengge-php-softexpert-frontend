@@ -25,6 +25,13 @@ const taxForm = {
 
 const categoryForm = {
   name: "",
+  buyer_cpf: "",
+  items_list: "",
+  total_value: "",
+};
+
+const saleForm = {
+  buyer_name: "",
   description: "",
 };
 
@@ -41,11 +48,17 @@ export const IndexProvider = ({ children }) => {
   const [Categories, setCategories] = useState([]);
   const [Category, setCategory] = useState([]);
 
+  const [saleValues, setSaleValues] = useState(saleForm);
+  const [Sales, setSales] = useState([]);
+  const [Sale, setSale] = useState([]);
+
+
   const onChange = (e) => {
     const { name, value } = e.target;
     setProductValues({ ...productValues, [name]: value });
     setTaxValues({ ...taxValues, [name]: value });
     setCategoryValues({ ...categoryValues, [name]: value });
+    setSaleValues({ ...saleValues, [name]: value });
   };
 
   const [errors, setErrors] = useState({});
@@ -69,6 +82,12 @@ export const IndexProvider = ({ children }) => {
     const response = await fetch(`${baseURL}categories`);
     const data = await response.json();
     setCategories(data);
+  };
+
+  const getSales = async () => {
+    const response = await fetch(`${baseURL}sales`);
+    const data = await response.json();
+    setSales(data);
   };
 
   // Get Item by ID 
@@ -104,6 +123,18 @@ export const IndexProvider = ({ children }) => {
     setCategoryValues({
       name: data.name,
       description: data.description
+    });
+  };
+
+  const getSale = async (id) => {
+    const response = await fetch(`${baseURL}categories/${id}`);
+    const data = await response.json();
+    setSale(data);
+    setSaleValues({
+      buyer_name: data.buyer_name,
+      buyer_cpf: data.buyer_cpf,
+      items_list: data.items_list,
+      total_value: data.total_value
     });
   };
 
@@ -195,6 +226,37 @@ export const IndexProvider = ({ children }) => {
 
       setCategoryValues(categoryForm);
       navigate("/categories");
+    } catch (e) {
+      if (e.response.status === 422) {
+        setErrors(e.response.data.errors);
+      }
+    }
+  };
+
+  const storeSale = async (e) => {
+    e.preventDefault();
+
+    try {
+
+      Object.entries(saleValues).forEach((entry) => {
+        const [key, value] = entry;
+        urlencoded.append(key, value);
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: "follow",
+      };
+
+      fetch(`${baseURL}sales`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+
+      setSaleValues(saleForm);
+      navigate("/sales");
     } catch (e) {
       if (e.response.status === 422) {
         setErrors(e.response.data.errors);
@@ -308,7 +370,6 @@ export const IndexProvider = ({ children }) => {
     }
   };
 
-
   // Delete items
 
   const deleteProduct = async (id) => {
@@ -345,6 +406,17 @@ export const IndexProvider = ({ children }) => {
     navigate("/categories");
   };
 
+  const deleteSale = async (id) => {
+    if (!window.confirm("Are you sure?")) {
+      return;
+    }
+    await fetch(`${baseURL}sales/${id}`, {
+      method: "DELETE",
+    });
+    getSales();
+    navigate("/sales");
+  };
+
   return (
     <IndexContext.Provider
       value={{
@@ -374,6 +446,14 @@ export const IndexProvider = ({ children }) => {
         storeCategory,
         deleteCategory,
         updateCategory,
+
+        Sale,
+        Sales,
+        saleValues,
+        getSales,
+        getSale,
+        storeSale,
+        deleteSale,
 
         errors,
         setErrors,

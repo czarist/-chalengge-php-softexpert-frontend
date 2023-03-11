@@ -15,6 +15,9 @@ import { CategoryIndex } from "./components/category/CategoryIndex";
 import { CategoryCreate } from "./components/category/CategoryCreate";
 import { CategoryEdit } from "./components/category/CategoryEdit";
 
+import { SaleIndex } from "./components/sale/SaleIndex";
+import { SaleCreate } from "./components/sale/SaleCreate";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -42,7 +45,12 @@ function App() {
               </li>
 
               <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/products" style={{ color: "white", textDecoration: "none !important" }}>Cart</Link>
+                <Link to="/sales" style={{ color: "white", textDecoration: "none !important" }}>Sales</Link>
+              </li>
+
+
+              <li className="m-2 p-2 text-white rounded-md color-white">
+                <Link to="/cart" style={{ color: "white", textDecoration: "none !important" }}>Cart</Link>
               </li>
             </ul>
           </nav>
@@ -66,6 +74,11 @@ function App() {
             <Route path="/categories" element={<CategoryIndex />} />
             <Route path="/categories/create" element={<CategoryCreate />} />
             <Route path="/categories/:id/edit" element={<CategoryEdit />} />
+
+            {/* Sale routes */}
+
+            <Route path="/sales" element={<SaleIndex />} />
+            <Route path="/cart" element={<SaleCreate />} />
 
           </Routes>
         </div>
