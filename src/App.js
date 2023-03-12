@@ -1,6 +1,6 @@
 import { Routes, Route, Link } from "react-router-dom";
 import { IndexProvider } from "./Context/IndexContext";
-import { CartContext } from "./Context/CartContext";
+import { CartProvider } from "./Context/CartContext";
 
 import { Home } from "./components/Home";
 
@@ -27,66 +27,68 @@ function App() {
 
   return (
     <IndexProvider>
-      <div className="bg-slate-200">
-        <div className="mx-auto min-h-screen">
-          <nav className="navbar navbar-dark bg-dark">
-            <ul className="flex">
-              <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/" style={{ color: "white", textDecoration: "none !important" }}>Home</Link>
-              </li>
+      <CartProvider>
+        <div className="bg-slate-200">
+          <div className="mx-auto min-h-screen">
+            <nav className="navbar navbar-dark bg-dark">
+              <ul className="flex">
+                <li className="m-2 p-2 text-white rounded-md color-white">
+                  <Link to="/" style={{ color: "white", textDecoration: "none !important" }}>Home</Link>
+                </li>
 
-              <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/products" style={{ color: "white", textDecoration: "none !important" }}>Products</Link>
-              </li>
+                <li className="m-2 p-2 text-white rounded-md color-white">
+                  <Link to="/products" style={{ color: "white", textDecoration: "none !important" }}>Products</Link>
+                </li>
 
-              <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/taxes" style={{ color: "white", textDecoration: "none !important" }}>Taxes</Link>
-              </li>
+                <li className="m-2 p-2 text-white rounded-md color-white">
+                  <Link to="/taxes" style={{ color: "white", textDecoration: "none !important" }}>Taxes</Link>
+                </li>
 
-              <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/categories" style={{ color: "white", textDecoration: "none !important" }}>Categories</Link>
-              </li>
+                <li className="m-2 p-2 text-white rounded-md color-white">
+                  <Link to="/categories" style={{ color: "white", textDecoration: "none !important" }}>Categories</Link>
+                </li>
 
-              <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/sales" style={{ color: "white", textDecoration: "none !important" }}>Sales</Link>
-              </li>
+                <li className="m-2 p-2 text-white rounded-md color-white">
+                  <Link to="/sales" style={{ color: "white", textDecoration: "none !important" }}>Sales</Link>
+                </li>
 
-              <li className="m-2 p-2 text-white rounded-md color-white d-flex justify-content-center align-items-center">
-                <Link to="/cart" style={{ color: "white", textDecoration: "none !important" }}>
-                  <i className="bi bi-cart-fill"></i>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          <Routes>
-            <Route path="/" element={<Home />} />
+                <li className="m-2 p-2 text-white rounded-md color-white d-flex justify-content-center align-items-center">
+                  <Link to="/cart" style={{ color: "white", textDecoration: "none !important" }}>
+                    <i className="bi bi-cart-fill"></i>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+            <Routes>
+              <Route path="/" element={<Home />} />
 
-            {/* Products routes */}
+              {/* Products routes */}
 
-            <Route path="/products" element={<ProductIndex />} />
-            <Route path="/products/create" element={<ProductCreate />} />
-            <Route path="/products/:id/edit" element={<ProductEdit />} />
+              <Route path="/products" element={<ProductIndex />} />
+              <Route path="/products/create" element={<ProductCreate />} />
+              <Route path="/products/:id/edit" element={<ProductEdit />} />
 
-            {/* Taxes routes */}
+              {/* Taxes routes */}
 
-            <Route path="/taxes" element={<TaxIndex />} />
-            <Route path="/taxes/create" element={<TaxCreate />} />
-            <Route path="/taxes/:id/edit" element={<TaxEdit />} />
+              <Route path="/taxes" element={<TaxIndex />} />
+              <Route path="/taxes/create" element={<TaxCreate />} />
+              <Route path="/taxes/:id/edit" element={<TaxEdit />} />
 
-            {/* Category routes */}
+              {/* Category routes */}
 
-            <Route path="/categories" element={<CategoryIndex />} />
-            <Route path="/categories/create" element={<CategoryCreate />} />
-            <Route path="/categories/:id/edit" element={<CategoryEdit />} />
+              <Route path="/categories" element={<CategoryIndex />} />
+              <Route path="/categories/create" element={<CategoryCreate />} />
+              <Route path="/categories/:id/edit" element={<CategoryEdit />} />
 
-            {/* Sale routes */}
+              {/* Sale routes */}
 
-            <Route path="/sales" element={<SaleIndex />} />
-            <Route path="/cart" element={<SaleCreate />} />
+              <Route path="/sales" element={<SaleIndex />} />
+              <Route path="/cart" element={<SaleCreate />} />
 
-          </Routes>
+            </Routes>
+          </div>
         </div>
-      </div>
+      </CartProvider>
     </IndexProvider>
   );
 }
