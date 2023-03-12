@@ -1,5 +1,4 @@
 import { useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
 import IndexContext from "../../Context/IndexContext";
 
 export const SaleIndex = () => {

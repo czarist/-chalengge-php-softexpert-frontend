@@ -1,5 +1,6 @@
 import { Routes, Route, Link } from "react-router-dom";
 import { IndexProvider } from "./Context/IndexContext";
+import { CartContext } from "./Context/CartContext";
 
 import { Home } from "./components/Home";
 
@@ -19,9 +20,11 @@ import { SaleIndex } from "./components/sale/SaleIndex";
 import { SaleCreate } from "./components/sale/SaleCreate";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 
 function App() {
+
   return (
     <IndexProvider>
       <div className="bg-slate-200">
@@ -48,9 +51,10 @@ function App() {
                 <Link to="/sales" style={{ color: "white", textDecoration: "none !important" }}>Sales</Link>
               </li>
 
-
-              <li className="m-2 p-2 text-white rounded-md color-white">
-                <Link to="/cart" style={{ color: "white", textDecoration: "none !important" }}>Cart</Link>
+              <li className="m-2 p-2 text-white rounded-md color-white d-flex justify-content-center align-items-center">
+                <Link to="/cart" style={{ color: "white", textDecoration: "none !important" }}>
+                  <i className="bi bi-cart-fill"></i>
+                </Link>
               </li>
             </ul>
           </nav>
