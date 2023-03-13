@@ -389,6 +389,7 @@ export const IndexProvider = ({ children }) => {
       method: "DELETE",
     });
     getProducts();
+    window.confirm("successfully deleted!")
     navigate("/products");
   };
 
@@ -396,22 +397,36 @@ export const IndexProvider = ({ children }) => {
     if (!window.confirm("Are you sure?")) {
       return;
     }
-    await fetch(`${baseURL}taxes/${id}`, {
-      method: "DELETE",
-    });
-    getTaxes();
-    navigate("/taxes");
+
+    try {
+      await fetch(`${baseURL}taxes/${id}`, {
+        method: "DELETE",
+      });
+
+      getTaxes();
+      window.confirm("successfully deleted!")
+      navigate("/taxes");
+    } catch (error) {
+      alert("It's not possible to delete this tax! It's associated with one or more products.");
+    }
   };
 
   const deleteCategory = async (id) => {
     if (!window.confirm("Are you sure?")) {
       return;
     }
-    await fetch(`${baseURL}categories/${id}`, {
-      method: "DELETE",
-    });
-    getCategories();
-    navigate("/categories");
+
+    try {
+      await fetch(`${baseURL}categories/${id}`, {
+        method: "DELETE",
+      });
+
+      getCategories();
+      window.confirm("successfully deleted!")
+      navigate("/categories");
+    } catch (error) {
+      alert("It's not possible to delete this categor! It's associated with one or more products")
+    }
   };
 
   const deleteSale = async (id) => {
@@ -422,6 +437,7 @@ export const IndexProvider = ({ children }) => {
       method: "DELETE",
     });
     getSales();
+    window.confirm("successfully deleted!")
     navigate("/sales");
   };
 

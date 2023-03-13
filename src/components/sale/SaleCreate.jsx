@@ -64,7 +64,7 @@ export const SaleCreate = () => {
                   <div className="cart d-flex mb-2" key={product.id}>
                     <div className="container">
                       <h6>{product.name}</h6>
-                      <h6>${product.price},00</h6>
+                      <h6>${product.price}</h6>
                       <h3>
                         {productsCart.find((item_obj) => item_obj.item_id === product.id)?.quantity
                           ? productsCart.find((item_obj) => item_obj.item_id === product.id)?.quantity
