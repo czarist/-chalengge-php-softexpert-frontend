@@ -10,13 +10,13 @@
 
     1.  Clone this project using git clone. 
         Clone este projeto usando git clone.
-        https://github.com/czarist/challenge-php-softexpert
         
     2.  Clone, install and run the backend project
         Clone, instale e rode o projeto backend
+        https://github.com/czarist/challenge-php-softexpert
 
-    3.  Open the frontend directory and run "npm install" in the terminal. 
-        Abra o diretório do frontend e execute "npm install" no terminal.
+    3.  Run "npm install" in the terminal. 
+        Execute "npm install" no terminal.
 
     4.  Run "npm start" in the terminal.
         Execute "npm start" no terminal.
