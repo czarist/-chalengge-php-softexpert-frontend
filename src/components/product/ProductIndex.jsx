@@ -17,7 +17,6 @@ export const ProductIndex = () => {
     getTaxes();
   }, []);
 
-
   return (
     <div className="mt-12">
       <div className="flex justify-end m-2 p-2">
@@ -43,6 +42,9 @@ export const ProductIndex = () => {
               </th>
               <th scope="col" className="py-3 px-6">
                 Price
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Price With no Taxes
               </th>
               <th scope="col" className="py-3 px-6">
                 Tax
@@ -76,10 +78,11 @@ export const ProductIndex = () => {
                     })}
                   </td>
                   <td className="py-4 px-6">R$ {Product.price}</td>
+                  <td className="py-4 px-6">R$ {Product.price_with_no_taxes}</td>
                   <td className="py-4 px-6">
                     {Taxes.map((tax) => {
                       return (
-                        tax.id == Product.tax_id ? tax.name : ""
+                        tax.id == Product.tax_id ? `${tax.name} % ${tax.rate}` : ""
                       );
                     })}
                   </td>
