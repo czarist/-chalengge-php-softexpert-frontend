@@ -39,13 +39,13 @@ export const ProductIndex = () => {
                 Description
               </th>
               <th scope="col" className="py-3 px-6">
-                Category ID
+                Category
               </th>
               <th scope="col" className="py-3 px-6">
                 Price
               </th>
               <th scope="col" className="py-3 px-6">
-                Tax ID
+                Tax
               </th>
               <th scope="col" className="py-3 px-6">
                 Created
