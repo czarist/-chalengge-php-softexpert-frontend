@@ -2,3 +2,7 @@ div#cards img {
     min-width: 200px;
     min-height: 200px;
 }
+
+tbody {
+    font-size: 12px;
+}
