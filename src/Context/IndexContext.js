@@ -142,6 +142,7 @@ export const IndexProvider = ({ children }) => {
 
   const storeProduct = async (e) => {
     e.preventDefault();
+    setProductValues(productForm);
 
     try {
 
@@ -255,7 +256,7 @@ export const IndexProvider = ({ children }) => {
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
 
-     // setSaleValues(saleForm);
+      // setSaleValues(saleForm);
       setSaleValues({
         buyer_name: '',
         buyer_cpf: '',
@@ -430,6 +431,7 @@ export const IndexProvider = ({ children }) => {
         Product,
         Products,
         productValues,
+        setProductValues,
         getProduct,
         getProducts,
         storeProduct,

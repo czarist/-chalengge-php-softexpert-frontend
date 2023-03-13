@@ -3,11 +3,18 @@ import { Link } from "react-router-dom";
 import IndexContext from "../../Context/IndexContext";
 
 export const ProductIndex = () => {
-  const { Products, getProducts, deleteProduct } = useContext(IndexContext);
+  const { Products,
+    getProducts,
+    deleteProduct,
+    Taxes,
+    getTaxes,
+    getCategories,
+    Categories } = useContext(IndexContext);
 
   useEffect(() => {
     getProducts();
-
+    getCategories();
+    getTaxes();
   }, []);
 
 
@@ -61,9 +68,21 @@ export const ProductIndex = () => {
                 >
                   <td className="py-4 px-6">{Product.name}</td>
                   <td className="py-4 px-6">{Product.description}</td>
-                  <td className="py-4 px-6">{Product.category_id}</td>
+                  <td className="py-4 px-6">
+                    {Categories.map((Category) => {
+                      return (
+                        Category.id == Product.category_id ? Category.name : ""
+                      );
+                    })}
+                  </td>
                   <td className="py-4 px-6">R$ {Product.price}</td>
-                  <td className="py-4 px-6">{Product.tax_id}</td>
+                  <td className="py-4 px-6">
+                    {Taxes.map((tax) => {
+                      return (
+                        tax.id == Product.tax_id ? tax.name : ""
+                      );
+                    })}
+                  </td>
                   <td className="py-4 px-6">{Product.created}</td>
                   <td className="py-4 px-6">{Product.modified}</td>
                   <td className="py-4 px-6">

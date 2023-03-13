@@ -6,6 +6,11 @@ export const ProductEdit = () => {
   const {
     productValues,
     onChange,
+    Taxes,
+    getTaxes,
+    Categories,
+    setProductValues,
+    getCategories,
     errors,
     setErrors,
     getProduct,
@@ -17,7 +22,30 @@ export const ProductEdit = () => {
   useEffect(() => {
     getProduct(id);
     setErrors({});
+    getCategories();
+    getTaxes();
   }, []);
+
+  const handleProductFormChange = (event) => {
+    setProductValues({
+      ...productValues,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSelectChangeCat = (event) => {
+    setProductValues({
+      ...productValues,
+      category_id: event.target.value,
+    });
+  };
+
+  const handleSelectChangeTax = (event) => {
+    setProductValues({
+      ...productValues,
+      tax_id: event.target.value,
+    });
+  };
 
   const [image, setImage] = useState('');
 
@@ -104,37 +132,35 @@ export const ProductEdit = () => {
             )}
           </div>
 
-          <div className="mb-4">
+          <div className="mb-2">
             <label htmlFor="category_id" className="block mb-2 text-sm font-medium">
               Category
             </label>
-            <input
-              type="number"
-              name="category_id"
-              value={productValues["category_id"]}
-              onChange={onChange}
-              className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
-            />
-            {errors.category_id && (
-              <span className="text-sm text-red-400">{errors.category_id[0]}</span>
-            )}
+            <select className="form-control" value={productValues["category_id"]} onChange={handleSelectChangeCat}>
+              <option selected value="default">Select a Category</option>
+              {Categories.map((Category) => {
+                return (
+                  <option key={Category.id} value={Category.id}>{Category.name}</option>
+                );
+              })}
+            </select>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-2">
             <label htmlFor="tax_id" className="block mb-2 text-sm font-medium">
               Tax
             </label>
-            <input
-              type="number"
-              name="tax_id"
-              value={productValues["tax_id"]}
-              onChange={onChange}
-              className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
-            />
-            {errors.tax_id && (
-              <span className="text-sm text-red-400">{errors.tax_id[0]}</span>
-            )}
+
+            <select className="form-control" value={productValues["tax_id"]} onChange={handleSelectChangeTax}>
+              <option selected value="default">Select a Tax</option>
+              {Taxes.map((tax) => {
+                return (
+                  <option key={tax.id} value={tax.id}>{tax.name}</option>
+                );
+              })}
+            </select>
           </div>
+
 
           <div className="mb-4">
             <label htmlFor="img" className="block mb-2 text-sm font-medium">
