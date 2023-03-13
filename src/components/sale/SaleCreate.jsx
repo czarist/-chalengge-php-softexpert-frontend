@@ -10,6 +10,7 @@ export const SaleCreate = () => {
     removeProductToCart,
     clearCart,
     finalPrice,
+
   } = useContext(CartContext);
 
   const {
@@ -17,55 +18,48 @@ export const SaleCreate = () => {
     onChange,
     storeSale,
     Products,
-    getProducts
+    getProducts,
+    setSaleValues
   } =
     useContext(IndexContext);
 
+
+  const clearSaleValues = () => {
+    setSaleValues(saleValues => ({
+      ...saleValues,
+      total_value: 0,
+      items_list: []
+    }));
+  }
+
+  function updateSaleValues(newTotalValue, newItemsList) {
+    setSaleValues({
+      buyer_name: saleValues["buyer_name"],
+      buyer_cpf: saleValues["buyer_cpf"],
+      total_value: newTotalValue,
+      items_list: newItemsList
+    });
+  }
+
   useEffect(() => {
     getProducts();
-  }, []);
 
-  const [theFinalValue, setTheFinalValue] = useState('');
-  const [theList, setTheList] = useState('');
-  const [breaker, setBreaker] = useState(true);
-
-  const total_value = document.getElementById("total_value");
-  const items_list = document.getElementById("items_list");
-
-  async function setNativeValue(element, value) {
-    let lastValue = element.value;
-    element.value = value;
-    let event = new Event("input", { target: element, bubbles: true });
-    event.simulated = true;
-    let tracker = element._valueTracker;
-    if (tracker) {
-      tracker.setValue(lastValue);
+    async function updateSale() {
+      clearSaleValues();
+      updateSaleValues(finalPrice, JSON.stringify(productsCart))
     }
-    element.dispatchEvent(event);
-  }
 
-  if (productsCart) {
-    setNativeValue(items_list, productsCart);
-  }
-
-  if (finalPrice) {
-    setNativeValue(total_value, finalPrice);
-  }
-
-
-
+    updateSale();
+  }, [saleValues.items_list, saleValues.total_value, finalPrice, productsCart]);
   return (
     <div className="mt-12">
-      <p>{JSON.stringify(productsCart)}</p>
-      <p>{finalPrice}</p>
-      <div
-        className="max-w-5xl mx-auto p-4 bg-white shadow-md rounded-sm"
-      >
+
+      <div className="max-w-5xl mx-auto p-4 bg-white shadow-md rounded-sm">
         <div className="row">
           <div className="col-6">
             <div className="space-y-6">
               <div>
-                <button className="mb-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md" onClick={clearCart}>Clear Cart</button>
+                <button className="mb-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md" onClick={() => { clearSaleValues(); clearCart(); }}>Clear Cart</button>
                 {Products.map((product) => (
                   <div className="cart d-flex mb-2" key={product.id}>
                     <div className="container">
@@ -76,9 +70,15 @@ export const SaleCreate = () => {
                           ? productsCart.find((item_obj) => item_obj.item_id === product.id)?.quantity
                           : 0}
                       </h3>
-                      <button type="button" className="btn btn-success" onClick={() => addProducToCart(product.id)}>+</button>
-                      <button type="button" className="btn btn-danger" onClick={() => removeProductToCart(product.id)}>-</button>
-                    </div>
+                      <button type="button" className="btn btn-success" onClick={() => {
+                        addProducToCart(product.id);
+                        updateSaleValues(finalPrice, JSON.stringify(productsCart));
+                      }}>+</button>
+
+                      <button type="button" className="btn btn-danger" onClick={() => {
+                        removeProductToCart(product.id);
+                        updateSaleValues(finalPrice, JSON.stringify(productsCart));
+                      }}>-</button>                    </div>
                     <img src={product.img} width={200} />
                   </div>
                 ))}
@@ -109,7 +109,7 @@ export const SaleCreate = () => {
                   <input
                     name="buyer_cpf"
                     type="number"
-                    value={saleValues["rate"]}
+                    value={saleValues["buyer_cpf"]}
                     onChange={onChange}
                     className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
                   />
@@ -123,7 +123,7 @@ export const SaleCreate = () => {
                     type="text"
                     value={saleValues["items_list"]}
                     onChange={onChange}
-                    className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
+                    className="border d-none border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
                   />
 
 
@@ -135,12 +135,13 @@ export const SaleCreate = () => {
                     type="text"
                     value={saleValues["total_value"]}
                     onChange={onChange}
-                    className="border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
+                    className="border d-none border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2"
                   />
 
 
                 </div>
               </div>
+              <h4><b>${saleValues["total_value"]}</b></h4>
               <div className="my-4">
                 <button
                   type="submit"
@@ -153,8 +154,6 @@ export const SaleCreate = () => {
           </div>
         </div>
       </div>
-
-
     </div >
 
   );

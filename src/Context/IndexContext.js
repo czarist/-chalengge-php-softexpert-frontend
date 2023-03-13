@@ -255,8 +255,15 @@ export const IndexProvider = ({ children }) => {
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
 
-      setSaleValues(saleForm);
-      navigate("/sales");
+     // setSaleValues(saleForm);
+      setSaleValues({
+        buyer_name: '',
+        buyer_cpf: '',
+        total_value: '',
+        items_list: ''
+      });
+      alert("purchase completed successfully");
+      window.location.reload();
     } catch (e) {
       if (e.response.status === 422) {
         setErrors(e.response.data.errors);
@@ -453,6 +460,7 @@ export const IndexProvider = ({ children }) => {
         getSales,
         getSale,
         storeSale,
+        setSaleValues,
         deleteSale,
 
         errors,

@@ -9,7 +9,7 @@ export const SaleIndex = () => {
   }, []);
   return (
     <div className="mt-12">
-      
+
       <div className="overflow-x-auto relative" bis_skin_checked="1">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-black dark:bg-gray-700 dark:text-white">
@@ -50,7 +50,7 @@ export const SaleIndex = () => {
                           (item) => {
                             return (
                               <li>
-                                <span>{item.item}</span>
+                                <span>{`${item.item} - ${item.quantity}x`}</span>
                               </li>
                             )
                           }

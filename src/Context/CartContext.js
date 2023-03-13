@@ -22,7 +22,7 @@ export function CartProvider({ children }) {
         const item_obj = copyProductsCart.find((product) => product.id === id);
 
         if (!item_obj) {
-            copyProductsCart.push({ id: id, item_id: id, name: data.name, quantity: 1, price: data.price * 1, item_tax_id: data.tax_id });
+            copyProductsCart.push({ id: id, item_id: id, item: data.name, quantity: 1, price: data.price * 1, item_tax_id: data.tax_id });
         } else {
             item_obj.quantity = item_obj.quantity + 1;
             item_obj.price = data.price * item_obj.quantity + 1;
